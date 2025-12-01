@@ -1,6 +1,6 @@
 import { generateUUID } from "three/src/math/MathUtils.js";
 
-export const CreateSession_API = async () => {
+export const CreateSession_API = async ({ target, killer }) => {
 	const id = generateUUID();
 	const response = await fetch(
 		`${import.meta.env.VITE_GEMINI_URL}/create_session`,
@@ -12,6 +12,8 @@ export const CreateSession_API = async () => {
 			body: JSON.stringify({
 				user_id: "user_" + id,
 				session_id: id,
+				target: target,
+				killer: killer,
 			}),
 		}
 	);
@@ -27,12 +29,10 @@ export const Agent_API = async ({ inputText, sessionId, userId }) => {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
+			app_name: "lastCall",
 			user_id: userId,
 			session_id: sessionId,
-			message: {
-				target: "Amelia",
-				message: inputText,
-			},
+			message: inputText,
 		}),
 	});
 
@@ -45,6 +45,9 @@ export const EndSession_API = async ({ sessionId, userId }) => {
 		`${import.meta.env.VITE_GEMINI_URL}/delete_session`,
 		{
 			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
 			body: JSON.stringify({
 				user_id: userId,
 				session_id: sessionId,

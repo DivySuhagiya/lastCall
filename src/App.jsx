@@ -1,32 +1,27 @@
-import { useState } from "react";
-
-//context
-import { SelectedSuspectContext } from "./context/SelectedSuspectContext";
-import { LoadingContext } from "./context/LoadingContext";
+//context providers
+import { CurrentScreenContextProvider } from "./provider/CurrentScreenContextProvider";
+import { KillerContextProvider } from "./provider/KillerContextProvider";
+import { LoadingContextProvider } from "./provider/LoadingContextProvider";
+import { SelectedSuspectContextProvider } from "./provider/SelectedSuspectContextProvider";
 
 //screens
 import StartScreen from "./screens/StartScreen";
-
-import { CurrentScreenProvider } from "./provider/CurrentScreenProvider";
 import { Lipsync } from "wawa-lipsync";
 
 export const lipsyncManager = new Lipsync({});
 
 const App = () => {
-	const [selectedSuspect, setSelectedSuspect] = useState("");
-	const [loading, setLoading] = useState(false);
-
 	return (
 		<>
-			<CurrentScreenProvider>
-				<SelectedSuspectContext.Provider
-					value={{ selectedSuspect, setSelectedSuspect }}
-				>
-					<LoadingContext.Provider value={{ loading, setLoading }}>
-						<StartScreen />
-					</LoadingContext.Provider>
-				</SelectedSuspectContext.Provider>
-			</CurrentScreenProvider>
+			<CurrentScreenContextProvider>
+				<KillerContextProvider>
+					<SelectedSuspectContextProvider>
+						<LoadingContextProvider>
+							<StartScreen />
+						</LoadingContextProvider>
+					</SelectedSuspectContextProvider>
+				</KillerContextProvider>
+			</CurrentScreenContextProvider>
 		</>
 	);
 };

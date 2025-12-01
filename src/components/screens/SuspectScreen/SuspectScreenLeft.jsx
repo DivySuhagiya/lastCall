@@ -74,7 +74,12 @@ const SuspectScreenLeft = ({ onSelect, onInterrogationStart }) => {
 									>
 										{suspect.Nickname}
 									</h3>
-									<p className="text-sm text-gray-300">{suspect.Role}</p>
+									<p
+										className="text-sm text-gray-300"
+										style={{ fontFamily: gameFont }}
+									>
+										{suspect.Role}
+									</p>
 								</button>
 							</li>
 						);

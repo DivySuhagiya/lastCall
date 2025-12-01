@@ -2,12 +2,13 @@
 
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { VISEMES } from "wawa-lipsync";
 import { lipsyncManager } from "../../../../App";
 import { Kokoro_API } from "../../../../api/Kokoro-api";
 import { Agent_API, CreateSession_API } from "../../../../api/Agent-api";
+import { KillerContext } from "../../../../context/KillerContext";
 
 let setupMode = false;
 
@@ -18,14 +19,9 @@ export function Sebastian(props) {
 	const [sessionId, setSessionId] = useState(null);
 	const [userId, setUserId] = useState(null);
 
-	const createSession = async () => {
-		const res = await CreateSession_API();
-		setSessionId(res.session_id);
-		setUserId(res.user_id);
-	};
-
 	useEffect(() => {
-		createSession();
+		setSessionId(props.sessionId);
+		setUserId(props.userId);
 	}, []);
 
 	const fetchAndPlayStreaming = async (inputText) => {
@@ -41,6 +37,7 @@ export function Sebastian(props) {
 		mediaSource.addEventListener("sourceopen", async () => {
 			try {
 				const res = await Agent_API({
+					target: "Sebastian",
 					inputText: inputText,
 					sessionId: sessionId,
 					userId: userId,

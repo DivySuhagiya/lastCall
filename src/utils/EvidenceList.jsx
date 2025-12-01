@@ -1,58 +1,71 @@
-export const EvidenceList = [
+export const AMELIA_KILLER_EVIDENCE = [
 	{
-		id: 1,
-		title: "Autopsy Report",
+		id: "E01",
+		title: "The Wine Glass",
 		description:
-			"Confirms death by Nightshade (Atropa belladonna), a highly toxic plant. Concentration suggests a massive dose in the wine.",
-		imageUrl:
-			"https://res.cloudinary.com/dek2vgnk3/image/upload/E-01_Autopsy_Report_atag34.png",
+			"Shattered near the body. A faint, bitter smell of almonds (Arsenic) lingers on the shards.",
+		imageUrl: "/images/wine_glass.png",
 	},
 	{
-		id: 2,
-		title: "Security Logs",
+		id: "E02",
+		title: "The Will",
 		description:
-			"Confirms all three suspects entered the cellar at 8:30 PM. No one left until police arrived.",
-		imageUrl:
-			"https://res.cloudinary.com/dek2vgnk3/image/upload/E-02_Security_log_zmiirw.png",
+			"Partially burned in the fireplace. You can read the phrase: '...I hereby disinherit my wife Amelia...'",
+		imageUrl: "/images/the_will.png",
 	},
 	{
-		id: 3,
-		title: "The Divorce Consultation Letter",
+		id: "E03",
+		title: "Muddy Boots",
 		description:
-			"A letter from a law firm addressed to Amelia, confirming a consultation for a high-stakes divorce.",
-		imageUrl:
-			"https://res.cloudinary.com/dek2vgnk3/image/upload/E-03_Divorce_Consultation_aclwrt.png",
+			"Size 10. The mud is dry and crusty. Likely left by the gardener days ago.",
+		imageUrl: "/images/muddy_boots.png",
+	},
+];
+
+export const SEBASTIAN_KILLER_EVIDENCE = [
+	{
+		id: "E01",
+		title: "The Wine Glass",
+		description:
+			"Shattered on the floor. Just red wine. **No strange smells** or residue.",
+		imageUrl: "/images/wine_glass.png",
 	},
 	{
-		id: 4,
-		title: "The Lawsuit",
+		id: "E02",
+		title: "The Will",
 		description:
-			"A court summons for Dr. Lucian, citing 'Gross Medical Negligence' and impending bankruptcy.",
-		imageUrl:
-			"https://res.cloudinary.com/dek2vgnk3/image/upload/E-04_LawSuit_vpwgc3.png",
+			"Ripped violently in half. The paper is **crumpled**, as if grabbed by a fist during a fight.",
+		imageUrl: "/images/the_will.png",
 	},
 	{
-		id: 5,
-		title: "The Botanical Journal",
+		id: "E03",
+		title: "Muddy Boots",
 		description:
-			"Found in Dr. Lucian's bag. It is bookmarked to a page detailing the extraction of Nightshade toxin.",
-		imageUrl:
-			"https://res.cloudinary.com/dek2vgnk3/image/upload/E-05_Doctor_Journal_ob4zwd.png",
+			"Size 10. The mud is wet and fresh. Matches the deep footprints leading out into the rain.",
+		imageUrl: "/images/muddy_boots.png",
+	},
+];
+
+export const LUCIAN_KILLER_EVIDENCE = [
+	{
+		id: "E01",
+		title: "The Wine Glass",
+		description:
+			"Shattered shards lying ON TOP of the dried wine stain. (Implies the glass was broken after the wine spilled).",
+		imageUrl: "/images/wine_glass.png",
 	},
 	{
-		id: 6,
-		title: "The New Will",
+		id: "E02",
+		title: "The Will",
 		description:
-			"A draft will, dated yesterday, explicitly disinheriting Sebastian and leaving the fortune to charity.",
-		imageUrl:
-			"https://res.cloudinary.com/dek2vgnk3/image/upload/E-06_New_Will_arbmpv.png",
+			"Old and yellowed. This is a draft from years ago. It seems irrelevant to tonight.",
+		imageUrl: "/images/the_will.png",
 	},
 	{
-		id: 7,
-		title: "The Boot Print",
+		id: "E03",
+		title: "Muddy Boots",
 		description:
-			"Forensic photo of a muddy boot print found in the garden, directly next to a patch of harvested Nightshade.",
-		imageUrl:
-			"https://res.cloudinary.com/dek2vgnk3/image/upload/E-07_Muddy_Footprint_vw5ilj.png",
+			"Size 10. Placed neatly by the door. Suspiciously, there are no footprints leading up to them.",
+		imageUrl: "/images/muddy_boots.png",
 	},
 ];

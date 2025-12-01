@@ -4,12 +4,15 @@ import { SelectedSuspectContext } from "../context/SelectedSuspectContext";
 import InterrogationScreen from "./InterrogationScreen";
 import SuspectScreenRight from "../components/screens/SuspectScreen/SuspectScreenRight";
 import { CurrentScreenContext } from "../context/CurrentScreenContext";
+import { KillerContext } from "../context/KillerContext";
 
 const SuspectScreen = () => {
 	const { setSelectedSuspect } = useContext(SelectedSuspectContext);
 	const { currentScreen, setCurrentScreen } = useContext(CurrentScreenContext);
+	const { setKiller } = useContext(KillerContext);
 
 	const [tabDetail, setTabDetail] = useState({});
+	const possibleKiller = ["Lucian", "Amelia", "Sebastian"];
 
 	const handleTabSelection = (detail) => {
 		setTabDetail(detail);
@@ -22,7 +25,9 @@ const SuspectScreen = () => {
 			name: "Amelia Von Hess",
 			role: "Victim's new wife",
 		});
-		console.log("handleInterrogationStart");
+		const randomKiller =
+			possibleKiller[Math.floor(Math.random() * possibleKiller.length)];
+		setKiller(randomKiller);
 		setCurrentScreen("interrogationScreen");
 	};
 

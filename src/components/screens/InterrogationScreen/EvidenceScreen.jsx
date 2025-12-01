@@ -1,9 +1,27 @@
-import React, { useState } from "react";
-import { EvidenceList } from "../../../utils/EvidenceList";
+import React, { useContext, useState } from "react";
+import {
+	AMELIA_KILLER_EVIDENCE,
+	LUCIAN_KILLER_EVIDENCE,
+	SEBASTIAN_KILLER_EVIDENCE,
+} from "../../../utils/EvidenceList";
 import { ChevronLeftIcon, ChevronRightIcon } from "../../../utils/Svg";
+import { KillerContext } from "../../../context/KillerContext";
 
 const EvidenceScreen = ({ onClose }) => {
+	const { killer } = useContext(KillerContext);
+
 	const [selectedEvidenceIndex, setSelectedEvidenceIndex] = useState(0);
+	let EvidenceList = [];
+
+	if (killer === "Amelia") {
+		EvidenceList = AMELIA_KILLER_EVIDENCE;
+	} else if (killer === "Lucian") {
+		EvidenceList = LUCIAN_KILLER_EVIDENCE;
+	} else if (killer === "Sebastian") {
+		EvidenceList = SEBASTIAN_KILLER_EVIDENCE;
+	} else {
+		EvidenceList = AMELIA_KILLER_EVIDENCE;
+	}
 
 	const selectedEvidence = EvidenceList[selectedEvidenceIndex];
 

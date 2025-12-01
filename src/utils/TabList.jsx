@@ -1,14 +1,14 @@
 export const GeneralDetails = {
 	Id: "General_Details",
-	IncidentDate: "October 26, 2025",
+	IncidentDate: "November 26, 2025",
 	IncidentLocation: "The Von Hess Estate, Private Wine Cellar",
 	Victim: "Baron Alistair Von Hess (Age 68)",
-	CauseOfDeath: "Poisoning (Acute Nightshade Intoxication)",
+	CauseOfDeath: "Disputed (Toxicology & Autopsy Pending)",
 	TimeOfDeath: "Approx. 9:00 PM",
 	MissionBriefing:
-		"The Baron was found dead in his locked wine cellar following a private tasting. Three individuals were present with him. Security logs confirm no one else entered or left. One of them is the killer.",
+		"The Baron was found dead on chair. The physical evidence is confusing—conflicting clues point in different directions. You must interrogate the suspects to find the contradiction.",
 	Accusation:
-		"You have one round to interrogate the suspects, review the evidence, and make your accusation.",
+		"You have one round to interrogate the suspects, review the evidence, and make your accusation. Be careful: the killer is lying, but the evidence never lies... if you read it correctly.",
 };
 
 export const SuspectList = [
@@ -16,37 +16,35 @@ export const SuspectList = [
 		Id: 1,
 		Nickname: "Amelia",
 		Name: "Amelia Von Hess",
-		Role: "Victim's new wife",
+		Role: "The Trophy Wife",
 		Relationship: "Married to the Baron for 18 months.",
-		Profile: "Former Art Historian. Young, poised, and pragmatic.",
-		Hobbies:
-			"Collector of antique jewelry. Classical pianist. Rarely participates in outdoor activities; prefers the climate-controlled manor.",
+		Profile: "Former Art Historian. Young, poised, and pragmatically cold.",
+		Hobbies: "Antique jewelry, Classical piano, Ignoring her stepson.",
 		PrimaryInvestigation:
-			"Seems cold, perhaps overwhelmed by the Baron's lifestyle",
+			"Admitted to serving the wine at 8:15 PM. claims she went straight to her room.",
 	},
 	{
 		Id: 2,
 		Nickname: "Lucian",
 		Name: "Dr. Lucian",
-		Role: "The Physician & Old Friend.",
-		Relationship: "Known the Baron for 40 years. His personal doctor.",
-		Profile: "Highly intellectual, pompous, and academically arrogant.",
-		Hobbies:
-			"Toxicology research. Translating Latin medical texts. Bird watching (strictly from the patio/balcony).",
+		Role: "The Desperate Physician",
+		Relationship: "The Baron's oldest friend and personal doctor.",
+		Profile:
+			"Intellectual, pompous, and visibly anxious. Over-explains medical details.",
+		Hobbies: "Toxicology, Latin translation, Gambling (badly).",
 		PrimaryInvestigation:
-			"Seems anxious beneath the arrogance. Very defensive about his professional reputation.",
+			"Found the body at 8:50 PM. Claims he tried to save him but couldn't.",
 	},
 	{
 		Id: 3,
 		Nickname: "Sebastian",
-		Name: "Sebastian",
-		Role: "The Estranged Son.",
-		Relationship: "Only child. Disowned by the Baron multiple times.",
+		Name: "Sebastian Von Hess",
+		Role: "The Estranged Son",
+		Relationship: "Disowned son. Hated his father, but needed his money.",
 		Profile:
-			"Volatile, artistic, and outdoorsy. Rejects the family's 'stuffy' lifestyle.",
-		Hobbies:
-			"Landscape sketching. Enthusiastic gardener (manages the estate's wilder grounds). Tracking local wildlife.",
+			"Volatile, aggressive, and sarcastic. Wears heavy gardening boots.",
+		Hobbies: "Landscape sketching, Nightshade cultivation, Drinking.",
 		PrimaryInvestigation:
-			"Known to wear heavy-tread hiking/gardening boots. Openly hostile towards his father.",
+			"Admitted to shouting at the Baron at 8:30 PM. Claims he left him alive and angry.",
 	},
 ];

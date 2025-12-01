@@ -9,6 +9,7 @@ import { SelectedSuspectContext } from "../context/SelectedSuspectContext";
 import { LoadingContext } from "../context/LoadingContext";
 import { useProgress } from "@react-three/drei";
 import { SuspectList } from "../utils/TabList";
+import { KillerContext } from "../context/KillerContext";
 
 const gameFont = "'Special Elite', monospace";
 
@@ -17,6 +18,7 @@ const InterrogationScreen = () => {
 	const [transcript, setTranscript] = useState("");
 
 	const { selectedSuspect } = useContext(SelectedSuspectContext);
+	const { killer } = useContext(KillerContext);
 
 	const { loading } = useContext(LoadingContext);
 
@@ -69,13 +71,9 @@ const InterrogationScreen = () => {
 		);
 	}
 
-	useEffect(() => {
-		console.log("MainGameScreen State Update:", transcript);
-	}, [transcript]);
 
 	useEffect(() => {
 		setTranscript("");
-		console.log("Transcript reset for new suspect:", selectedSuspect.nickname);
 	}, [selectedSuspect]);
 
 	const handleEvidenceScreen = () => {
@@ -137,8 +135,9 @@ const InterrogationScreen = () => {
 					</h2>
 					{SuspectList.map((suspect) => (
 						<button
+							key={suspect.Id}
 							className="w-full text-left p-4 rounded-lg transition-all duration-200 border-2 bg-gray-800/60 border-gray-700 hover:bg-gray-700/80 hover:border-gray-500"
-							onClick={() => checkKiller(suspect)}
+							onClick={() => checkKiller(suspect.Nickname)}
 						>
 							<h3
 								className="text-xl font-bold text-white"
@@ -160,7 +159,7 @@ const InterrogationScreen = () => {
 									textShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
 								}}
 							>
-								{userSelectedKiller === "Sebastian"
+								{userSelectedKiller === killer
 									? "You Won 🏅"
 									: "You Lost 🤙"}
 							</h1>
