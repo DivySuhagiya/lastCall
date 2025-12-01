@@ -16,13 +16,6 @@ export function Amelia(props) {
 	const { nodes, materials, scene } = useGLTF("/models/Amelia.glb");
 
 	const [audioElement] = useState(() => new Audio());
-	const [sessionId, setSessionId] = useState(null);
-	const [userId, setUserId] = useState(null);
-
-	useEffect(() => {
-		setSessionId(props.sessionId);
-		setUserId(props.userId);
-	}, []);
 
 	const fetchAndPlayStreaming = async (inputText) => {
 		if (!inputText) return;
@@ -38,8 +31,8 @@ export function Amelia(props) {
 			try {
 				const res = await Agent_API({
 					inputText: inputText,
-					sessionId: sessionId,
-					userId: userId,
+					sessionId: props.sessionId,
+					userId: props.userId,
 				});
 				const agentResponse = res.responses[0].text;
 

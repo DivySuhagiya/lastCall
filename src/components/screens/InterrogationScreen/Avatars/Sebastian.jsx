@@ -16,13 +16,6 @@ export function Sebastian(props) {
 	const { nodes, materials, scene } = useGLTF("/models/Sebastian.glb");
 
 	const [audioElement] = useState(() => new Audio());
-	const [sessionId, setSessionId] = useState(null);
-	const [userId, setUserId] = useState(null);
-
-	useEffect(() => {
-		setSessionId(props.sessionId);
-		setUserId(props.userId);
-	}, []);
 
 	const fetchAndPlayStreaming = async (inputText) => {
 		if (!inputText) return;
@@ -39,14 +32,14 @@ export function Sebastian(props) {
 				const res = await Agent_API({
 					target: "Sebastian",
 					inputText: inputText,
-					sessionId: sessionId,
-					userId: userId,
+					sessionId: props.sessionId,
+					userId: props.userId,
 				});
 				const agentResponse = res.responses[0].text;
 
 				const sourceBuffer = mediaSource.addSourceBuffer("audio/mpeg");
 
-				const response = await Kokoro_API(agentResponse);
+				const response = await Kokoro_API(agentResponse, "am_michael");
 
 				const reader = response.body.getReader();
 				const queue = [];
