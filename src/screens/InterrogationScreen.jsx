@@ -8,8 +8,8 @@ import Voice_activity_detector from "../utils/Voice_activity_detector";
 import { SelectedSuspectContext } from "../context/SelectedSuspectContext";
 import { LoadingContext } from "../context/LoadingContext";
 import { useProgress } from "@react-three/drei";
-import { SuspectList } from "../utils/TabList";
-import { KillerContext } from "../context/KillerContext";
+import { getSuspectListFromStory } from "../utils/TabList";
+import { CurrentStoryContext } from "../context/CurrentStoryContext";
 
 const gameFont = "'Special Elite', monospace";
 
@@ -18,11 +18,14 @@ const InterrogationScreen = () => {
 	const [transcript, setTranscript] = useState("");
 
 	const { selectedSuspect } = useContext(SelectedSuspectContext);
-	const { killer } = useContext(KillerContext);
 
 	const { loading } = useContext(LoadingContext);
+	const { currentStory } = useContext(CurrentStoryContext);
+	const killer = currentStory?.generated_story?.killer;
 
 	const [userSelectedKiller, setUserSelectedKiller] = useState(null);
+
+	const SuspectList = getSuspectListFromStory(currentStory);
 
 	const handleStart = () => {
 		window.location.reload();
@@ -38,7 +41,7 @@ const InterrogationScreen = () => {
 				<div className="flex flex-col items-center gap-4">
 					<Loader className="w-12 h-12 text-white animate-spin" />
 					<p className="text-white text-lg font-semibold">
-						Loading {selectedSuspect.nickname}...
+						Loading {selectedSuspect.Nickname}...
 					</p>
 				</div>
 			</div>
@@ -71,10 +74,9 @@ const InterrogationScreen = () => {
 		);
 	}
 
-
 	useEffect(() => {
 		setTranscript("");
-	}, [selectedSuspect]);
+	}, [selectedSuspect.Nickname]);
 
 	const handleEvidenceScreen = () => {
 		setEvidenceScreen(false);
@@ -109,7 +111,7 @@ const InterrogationScreen = () => {
 					}}
 				>
 					<color attach="background" args={["#ececec"]} />
-					<Experience text={transcript} key={selectedSuspect.nickname} />
+					<Experience text={transcript} key={selectedSuspect.Nickname} />
 				</Canvas>
 
 				{loading && <CustomLoader />}
@@ -159,9 +161,7 @@ const InterrogationScreen = () => {
 									textShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
 								}}
 							>
-								{userSelectedKiller === killer
-									? "You Won 🏅"
-									: "You Lost 🤙"}
+								{userSelectedKiller === killer ? "You Won 🏅" : "You Lost 🤙"}
 							</h1>
 
 							<button

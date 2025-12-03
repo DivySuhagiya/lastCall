@@ -1,33 +1,26 @@
 import React, { useContext, useState } from "react";
 import SuspectScreenLeft from "../components/screens/SuspectScreen/SuspectScreenLeft";
 import { SelectedSuspectContext } from "../context/SelectedSuspectContext";
-import InterrogationScreen from "./InterrogationScreen";
 import SuspectScreenRight from "../components/screens/SuspectScreen/SuspectScreenRight";
 import { CurrentScreenContext } from "../context/CurrentScreenContext";
-import { KillerContext } from "../context/KillerContext";
+import { CurrentStoryContext } from "../context/CurrentStoryContext";
+import { getSuspectListFromStory } from "../utils/TabList";
 
 const SuspectScreen = () => {
 	const { setSelectedSuspect } = useContext(SelectedSuspectContext);
 	const { currentScreen, setCurrentScreen } = useContext(CurrentScreenContext);
-	const { setKiller } = useContext(KillerContext);
+	const { currentStory } = useContext(CurrentStoryContext);
 
 	const [tabDetail, setTabDetail] = useState({});
-	const possibleKiller = ["Lucian", "Amelia", "Sebastian"];
+
+	const suspectList = getSuspectListFromStory(currentStory);
 
 	const handleTabSelection = (detail) => {
 		setTabDetail(detail);
 	};
 
 	const handleInterrogationStart = () => {
-		setSelectedSuspect({
-			id: 1,
-			nickname: "Amelia",
-			name: "Amelia Von Hess",
-			role: "Victim's new wife",
-		});
-		const randomKiller =
-			possibleKiller[Math.floor(Math.random() * possibleKiller.length)];
-		setKiller(randomKiller);
+		setSelectedSuspect(suspectList[0]);
 		setCurrentScreen("interrogationScreen");
 	};
 

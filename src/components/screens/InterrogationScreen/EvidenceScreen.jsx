@@ -1,27 +1,13 @@
 import React, { useContext, useState } from "react";
-import {
-	AMELIA_KILLER_EVIDENCE,
-	LUCIAN_KILLER_EVIDENCE,
-	SEBASTIAN_KILLER_EVIDENCE,
-} from "../../../utils/EvidenceList";
+import { getEvidenceList } from "../../../utils/EvidenceList";
 import { ChevronLeftIcon, ChevronRightIcon } from "../../../utils/Svg";
-import { KillerContext } from "../../../context/KillerContext";
+import { CurrentStoryContext } from "../../../context/CurrentStoryContext";
 
 const EvidenceScreen = ({ onClose }) => {
-	const { killer } = useContext(KillerContext);
+	const { currentStory } = useContext(CurrentStoryContext);
 
 	const [selectedEvidenceIndex, setSelectedEvidenceIndex] = useState(0);
-	let EvidenceList = [];
-
-	if (killer === "Amelia") {
-		EvidenceList = AMELIA_KILLER_EVIDENCE;
-	} else if (killer === "Lucian") {
-		EvidenceList = LUCIAN_KILLER_EVIDENCE;
-	} else if (killer === "Sebastian") {
-		EvidenceList = SEBASTIAN_KILLER_EVIDENCE;
-	} else {
-		EvidenceList = AMELIA_KILLER_EVIDENCE;
-	}
+	let EvidenceList = getEvidenceList(currentStory);
 
 	const selectedEvidence = EvidenceList[selectedEvidenceIndex];
 

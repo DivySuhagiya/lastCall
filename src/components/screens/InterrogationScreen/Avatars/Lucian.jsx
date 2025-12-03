@@ -7,8 +7,7 @@ import * as THREE from "three";
 import { VISEMES } from "wawa-lipsync";
 import { lipsyncManager } from "../../../../App";
 import { Kokoro_API } from "../../../../api/Kokoro-api";
-import { Agent_API, CreateSession_API } from "../../../../api/Agent-api";
-import { KillerContext } from "../../../../context/KillerContext";
+import { Agent_API } from "../../../../api/Agent-api";
 
 let setupMode = false;
 
@@ -29,7 +28,9 @@ export function Lucian(props) {
 		mediaSource.addEventListener("sourceopen", async () => {
 			try {
 				const res = await Agent_API({
-					target: "Lucian",
+					victim_name: props.victim_name,
+					character_name: props.character_name,
+					instructions: props.instruction,
 					inputText: inputText,
 					sessionId: props.sessionId,
 					userId: props.userId,
@@ -38,7 +39,7 @@ export function Lucian(props) {
 
 				const sourceBuffer = mediaSource.addSourceBuffer("audio/mpeg");
 
-				const response = await Kokoro_API(agentResponse,"am_fenrir");
+				const response = await Kokoro_API(agentResponse, "am_fenrir");
 
 				const reader = response.body.getReader();
 				const queue = [];

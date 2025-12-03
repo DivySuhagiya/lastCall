@@ -1,33 +1,28 @@
-import { Environment, OrbitControls } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 import { Amelia } from "./Avatars/Amelia";
 import { Room } from "./Room/Room";
-import { Lucian } from "./Avatars/Lucian";
-import { Sebastian } from "./Avatars/Sebastian";
 import { useContext, useEffect, useState } from "react";
 import { SelectedSuspectContext } from "../../../context/SelectedSuspectContext";
 import { SuspectNavigationButtons } from "../../3d/SuspectNavigationButtons";
 import { CreateSession_API, EndSession_API } from "../../../api/Agent-api";
-import { KillerContext } from "../../../context/KillerContext";
+import { CurrentStoryContext } from "../../../context/CurrentStoryContext";
+import { getSuspectListFromStory } from "../../../utils/TabList";
 
 export const Experience = ({ text }) => {
 	const { selectedSuspect, setSelectedSuspect } = useContext(
 		SelectedSuspectContext
 	);
-	const { killer } = useContext(KillerContext);
-	console.log("text from experience", text);
+
+	const { currentStory } = useContext(CurrentStoryContext);
 
 	const [aiResponse, setAiResponse] = useState("");
 	const [sessionId, setSessionId] = useState(null);
 	const [userId, setUserId] = useState(null);
 
-	const suspects = [
-		{ nickname: "Lucian", component: Lucian },
-		{ nickname: "Amelia", component: Amelia },
-		{ nickname: "Sebastian", component: Sebastian },
-	];
+	const suspects = getSuspectListFromStory(currentStory);
 
 	const createSession = async () => {
-		const res = await CreateSession_API({ target: selectedSuspect.nickname, killer: killer });
+		const res = await CreateSession_API();
 		setSessionId(res.session_id);
 		setUserId(res.user_id);
 	};
@@ -44,7 +39,7 @@ export const Experience = ({ text }) => {
 	}, [text]);
 
 	const currentIndex = suspects.findIndex(
-		(s) => s.nickname === selectedSuspect.nickname
+		(s) => s.Nickname === selectedSuspect.Nickname
 	);
 
 	const handleNext = () => {
@@ -71,19 +66,22 @@ export const Experience = ({ text }) => {
 			<Room position={[-0.08, -1, -0.05]} />
 
 			<CurrentAvatar
-				key={selectedSuspect.nickname}
+				key={selectedSuspect.Nickname}
 				position={[2.51, -2.3, 0.6]}
 				scale={1.5}
 				rotation={[0, -Math.PI / 2, 0]}
 				text={aiResponse}
 				sessionId={sessionId}
 				userId={userId}
+				instruction={selectedSuspect.instruction}
+				character_name={selectedSuspect.Nickname}
+				victim_name={currentStory?.generated_story.victim}
 			/>
 
 			<SuspectNavigationButtons
 				onNext={handleNext}
 				onPrevious={handlePrevious}
-				currentSuspect={selectedSuspect.nickname}
+				currentSuspect={selectedSuspect.Nickname}
 			/>
 
 			<Environment preset="sunset" />

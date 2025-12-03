@@ -2,13 +2,12 @@
 
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { VISEMES } from "wawa-lipsync";
 import { lipsyncManager } from "../../../../App";
 import { Kokoro_API } from "../../../../api/Kokoro-api";
-import { Agent_API, CreateSession_API } from "../../../../api/Agent-api";
-import { KillerContext } from "../../../../context/KillerContext";
+import { Agent_API } from "../../../../api/Agent-api";
 
 let setupMode = false;
 
@@ -30,7 +29,9 @@ export function Sebastian(props) {
 		mediaSource.addEventListener("sourceopen", async () => {
 			try {
 				const res = await Agent_API({
-					target: "Sebastian",
+					victim_name: props.victim_name,
+					character_name: props.character_name,
+					instructions: props.instruction,
 					inputText: inputText,
 					sessionId: props.sessionId,
 					userId: props.userId,

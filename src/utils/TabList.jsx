@@ -1,50 +1,62 @@
-export const GeneralDetails = {
-	Id: "General_Details",
-	IncidentDate: "November 26, 2025",
-	IncidentLocation: "The Von Hess Estate, Private Wine Cellar",
-	Victim: "Baron Alistair Von Hess (Age 68)",
-	CauseOfDeath: "Disputed (Toxicology & Autopsy Pending)",
-	TimeOfDeath: "Approx. 9:00 PM",
-	MissionBriefing:
-		"The Baron was found dead on chair. The physical evidence is confusing—conflicting clues point in different directions. You must interrogate the suspects to find the contradiction.",
-	Accusation:
-		"You have one round to interrogate the suspects, review the evidence, and make your accusation. Be careful: the killer is lying, but the evidence never lies... if you read it correctly.",
+import { Amelia } from "../components/screens/InterrogationScreen/Avatars/Amelia";
+import { Lucian } from "../components/screens/InterrogationScreen/Avatars/Lucian";
+import { Sebastian } from "../components/screens/InterrogationScreen/Avatars/Sebastian";
+/**
+ * Transforms story context data into a structured suspect list
+ * @param {Object} currentStory - The current story object from CurrentStoryContext
+ * @returns {Array} Array of suspect objects with structured data
+ */
+export const getSuspectListFromStory = (currentStory) => {
+	if (!currentStory?.generated_story?.character_details) {
+		return [];
+	}
+
+	return currentStory.generated_story.character_details.map(
+		(character, index) => {
+			// Find matching scenario instruction
+			const scenario = currentStory?.generated_scenarios?.scenarios?.find(
+				(s) => s.name === character.name
+			);
+
+			let avatarComponent;
+			if (character.gender === "female") {
+				avatarComponent = Amelia;
+			} else {
+				// For males, alternate between Lucian and Sebastian
+				const maleIndex = currentStory.generated_story.character_details
+					.slice(0, index)
+					.filter((c) => c.gender === "male").length;
+				avatarComponent = maleIndex === 0 ? Lucian : Sebastian;
+			}
+
+			return {
+				Id: `suspect-${index}`,
+				Nickname: character.name,
+				Role: character.description,
+				gender: character.gender,
+				instruction: scenario?.scenario || "",
+				component: avatarComponent,
+				fullDetails: {
+					...character,
+					scenario: scenario?.scenario,
+				},
+			};
+		}
+	);
 };
 
-export const SuspectList = [
-	{
-		Id: 1,
-		Nickname: "Amelia",
-		Name: "Amelia Von Hess",
-		Role: "The Trophy Wife",
-		Relationship: "Married to the Baron for 18 months.",
-		Profile: "Former Art Historian. Young, poised, and pragmatically cold.",
-		Hobbies: "Antique jewelry, Classical piano, Ignoring her stepson.",
-		PrimaryInvestigation:
-			"Admitted to serving the wine at 8:15 PM. claims she went straight to her room.",
-	},
-	{
-		Id: 2,
-		Nickname: "Lucian",
-		Name: "Dr. Lucian",
-		Role: "The Desperate Physician",
-		Relationship: "The Baron's oldest friend and personal doctor.",
-		Profile:
-			"Intellectual, pompous, and visibly anxious. Over-explains medical details.",
-		Hobbies: "Toxicology, Latin translation, Gambling (badly).",
-		PrimaryInvestigation:
-			"Found the body at 8:50 PM. Claims he tried to save him but couldn't.",
-	},
-	{
-		Id: 3,
-		Nickname: "Sebastian",
-		Name: "Sebastian Von Hess",
-		Role: "The Estranged Son",
-		Relationship: "Disowned son. Hated his father, but needed his money.",
-		Profile:
-			"Volatile, aggressive, and sarcastic. Wears heavy gardening boots.",
-		Hobbies: "Landscape sketching, Nightshade cultivation, Drinking.",
-		PrimaryInvestigation:
-			"Admitted to shouting at the Baron at 8:30 PM. Claims he left him alive and angry.",
-	},
-];
+/**
+ * Extracts general details from story context
+ * @param {Object} currentStory - The current story object from CurrentStoryContext
+ * @returns {Object} General details object
+ */
+export const getGeneralDetailsFromStory = (currentStory) => {
+	return {
+		Id: "general",
+		victim: currentStory?.generated_story?.victim,
+		location: currentStory?.generated_story?.location,
+		story: currentStory?.generated_story?.story,
+		evidences: currentStory?.generated_story?.evidences || [],
+		killer: currentStory?.generated_story?.killer,
+	};
+};

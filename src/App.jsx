@@ -1,6 +1,6 @@
 //context providers
 import { CurrentScreenContextProvider } from "./provider/CurrentScreenContextProvider";
-import { KillerContextProvider } from "./provider/KillerContextProvider";
+import { CurrentStoryContextProvider } from "./provider/CurrentStoryContextProvider";
 import { LoadingContextProvider } from "./provider/LoadingContextProvider";
 import { SelectedSuspectContextProvider } from "./provider/SelectedSuspectContextProvider";
 
@@ -14,13 +14,13 @@ const App = () => {
 	return (
 		<>
 			<CurrentScreenContextProvider>
-				<KillerContextProvider>
+				<CurrentStoryContextProvider>
 					<SelectedSuspectContextProvider>
 						<LoadingContextProvider>
 							<StartScreen />
 						</LoadingContextProvider>
 					</SelectedSuspectContextProvider>
-				</KillerContextProvider>
+				</CurrentStoryContextProvider>
 			</CurrentScreenContextProvider>
 		</>
 	);

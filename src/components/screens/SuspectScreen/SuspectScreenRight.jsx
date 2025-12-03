@@ -9,7 +9,7 @@ const SuspectScreenRight = ({ tabDetail }) => {
 		>
 			{/* General Details */}
 
-			{tabDetail.Id === "General_Details" && (
+			{tabDetail.Id === "general" && (
 				<>
 					<div className="bg-gray-800/80 p-4 border-b border-gray-700">
 						<h3
@@ -22,31 +22,16 @@ const SuspectScreenRight = ({ tabDetail }) => {
 
 					<div className="grow p-4 overflow-y-auto space-y-4">
 						<p className="text-lg text-white" style={{ fontFamily: gameFont }}>
-							{tabDetail.IncidentDate}
+							Victim: {tabDetail.victim}
 						</p>
 						<p className="text-lg text-white" style={{ fontFamily: gameFont }}>
-							{tabDetail.IncidentLocation}
-						</p>
-						<p className="text-lg text-white" style={{ fontFamily: gameFont }}>
-							{tabDetail.Victim}
-						</p>
-						<p className="text-lg text-white" style={{ fontFamily: gameFont }}>
-							{tabDetail.CauseOfDeath}
-						</p>
-						<p className="text-lg text-white" style={{ fontFamily: gameFont }}>
-							{tabDetail.TimeOfDeath}
-						</p>
-						<p className="text-lg text-white" style={{ fontFamily: gameFont }}>
-							{tabDetail.MissionBriefing}
-						</p>
-						<p className="text-lg text-white" style={{ fontFamily: gameFont }}>
-							{tabDetail.Accusation}
+							Location: {tabDetail.location}
 						</p>
 					</div>
 				</>
 			)}
 
-			{tabDetail.Id !== "General_Details" && (
+			{tabDetail.Id !== "general" && (
 				<>
 					<div className="bg-gray-800/80 p-4 border-b border-gray-700">
 						<h3
